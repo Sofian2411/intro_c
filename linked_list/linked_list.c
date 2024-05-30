@@ -18,7 +18,7 @@ List* ll_new_list() {
 ssize_t ll_append(List* list, size_t data) {
     Node* n = malloc(sizeof(Node));
     if (n == NULL)
-        return -1;
+        return 0;
 
     n->data = data;
     n->next = NULL;
@@ -29,6 +29,7 @@ ssize_t ll_append(List* list, size_t data) {
 
     aux->next = n;
 
+    list->size++;
     return 1;
 }
 
@@ -51,17 +52,79 @@ ssize_t ll_pop(List* list) {
         res = last->data;
         aux->next = NULL;
     }
-    return res;
+    list->size--;
     free(last);
+    return res;
 }
 
 // Get the data at index
-ssize_t ll_get(List* list, int index, int *result);
+ssize_t ll_get(List* list, int index, int *result) {
+    if (index >= list->size)
+        return -1;
+    Node* aux = list->head;
+    while (index != 0) {
+        aux = aux->next;
+        index--;
+    }
+    return aux->data;
+}
 
 // Remove the node at index
-ssize_t ll_remove(List* list, int index);
+ssize_t ll_remove(List* list, int index) {
+    if (index >= list->size)
+        return -1;
+    if (index == list->size - 1)
+        return ll_pop(list);
+    Node* aux;
+    Node* cur = list->head;
+    while (index != 0) {
+        aux = cur;
+        cur = cur->next;
+        index--;
+    }
+    aux->next = cur->next;
+    ssize_t res = cur->data;
+    free(cur);
+    return res;
+}
 
 // Insert data at index
-ssize_t ll_insert(List* list, int index, int data);
+ssize_t ll_insert(List* list, int index, int data) {
+    if (index > list->size)
+        return 0;
+    if (index > list->size)
+        return ll_append(list, data);
 
-void ll_clear();
+    Node* n = malloc(sizeof(Node));
+    if (n == NULL)
+        return 0;
+    n->data = data;
+
+    Node* aux;
+    Node* cur = list->head;
+    while (index != 0) {
+        aux = cur;
+        cur = cur->next;
+        index--;
+    }
+    aux->next = n;
+    n->next = cur;
+    return 1;
+}
+
+void ll_clear(List *list) {
+    Node* cur = list->head;
+    Node* aux;
+    
+    while (cur != NULL) {
+        aux = cur;
+        cur = cur->next;
+        free(aux);
+    }
+    list->head = NULL;
+}
+
+void ll_destroy(List* list) {
+    ll_clear(list);
+    free(list);
+}

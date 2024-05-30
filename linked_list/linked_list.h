@@ -33,6 +33,10 @@ ssize_t ll_remove(List* list, int index);
 // Insert data at index
 ssize_t ll_insert(List* list, int index, int data);
 
-void ll_clear();
+// Clear list
+void ll_clear(List* list);
+
+// Destroy list
+void ll_destroy(List* list);
 
 #endif
