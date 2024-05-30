@@ -3,7 +3,7 @@ CC = gcc
 CFALGS = -std=c99 -Werror
 #CPPFLAGS =
 #LDFLAGS =
-#LDLIBS =
+LDLIBS = -lcriterion
 
 SRC = linked_list.c test.c
 OBJ = ${SRC:.c=.o}
@@ -17,7 +17,14 @@ ll: ${OBJ}
 %.o: %.c
 	${CC} ${CFALGS} -c $< -o $@
 
-.PHONY: clean
+test: ${OBJ}
+	${CC} ${CFLAGS} ${LDLIBS} ${OBJ} -o test
+
+check: test 
+	./test
+
+.PHONY: clean, check, test
 
 clean:
-	${RM} ${DEP} ${OBJ} ll
+	${RM} ${DEP} ${OBJ} ll test
+
