@@ -19,12 +19,17 @@ ssize_t ll_append(List* list, size_t data) {
 
     n->data = data;
     n->next = NULL;
+    
+    if (list->size == 0)
+    {
+        list->head = n;
+    } else {
+        Node* aux = list->head;
+        while (aux->next != NULL)
+            aux = aux->next;
 
-    Node* aux = list->head;
-    while (aux->next != NULL)
-        aux = aux->next;
-
-    aux->next = n;
+        aux->next = n;
+    }
 
     list->size++;
     return 1;
@@ -120,6 +125,7 @@ void ll_clear(List *list) {
         free(aux);
     }
     list->head = NULL;
+    list->size = 0;
 }
 
 // Destroy list
