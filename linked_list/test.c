@@ -320,3 +320,38 @@ Test(Basics, remove_index_to_big)
     cr_expect_eq(linked->size, 5, "Expected size to be 5 but was %lu",
             linked->size);
 }
+
+Test(list_NULL, append)
+{
+    ssize_t r = ll_append(NULL, 0);
+    cr_expect_eq(r, 0, "expected return value to be 0 but was %lu", r);
+}
+
+Test(list_NULL, get)
+{
+    ssize_t r = ll_get(NULL, 0);
+    cr_expect_eq(r, -1, "expected return value to be -1 but was %lu", r);
+}
+
+Test(list_NULL, pop)
+{
+    ssize_t r = ll_pop(NULL);
+    cr_expect_eq(r, -1, "expected return value to be -1 but was %lu", r);
+}
+
+Test(list_NULL, remove)
+{
+    ssize_t r = ll_remove(NULL, 0);
+    cr_expect_eq(r, -1, "expected return value to be -1 but was %lu", r);
+}
+
+Test(list_NULL, clear)
+{
+    ll_clear(NULL);
+}
+
+Test(list_NULL, destroy)
+{
+    ll_destroy(NULL);
+}
+
