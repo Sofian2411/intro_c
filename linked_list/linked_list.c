@@ -81,14 +81,22 @@ ssize_t ll_remove(List* list, size_t index) {
         return ll_pop(list);
     Node* aux;
     Node* cur = list->head;
-    while (index != 0) {
-        aux = cur;
-        cur = cur->next;
-        index--;
+    if (index == 0)
+    {
+        list->head = cur->next;
     }
-    aux->next = cur->next;
+    else
+    {
+        while (index != 0) {
+            aux = cur;
+            cur = cur->next;
+            index--;
+        }
+        aux->next = cur->next;
+    }
     ssize_t res = cur->data;
     free(cur);
+    list->size--;
     return res;
 }
 
@@ -103,15 +111,20 @@ ssize_t ll_insert(List* list, size_t index, size_t data) {
     if (n == NULL)
         return 0;
     n->data = data;
-
-    Node* aux;
+    
     Node* cur = list->head;
-    while (index != 0) {
-        aux = cur;
-        cur = cur->next;
-        index--;
+    if (index == 0)
+    {
+        list->head = n;
+    } else {
+        Node* aux;
+        while (index != 0) {
+            aux = cur;
+            cur = cur->next;
+            index--;
+        }
+        aux->next = n;
     }
-    aux->next = n;
     n->next = cur;
     list->size++;
     return 1;

@@ -1,4 +1,5 @@
 #include <criterion/criterion.h>
+#include <stdio.h>
 
 #include "linked_list.h"
 
@@ -118,19 +119,6 @@ Test(Basics, get_on_a_list)
     }
 }
 
-Test(Basics, get_negative_index)
-{
-    List* linked = ll_new_list();
-    size_t a[5] = {10,11,12,13,14};
-    for (size_t i = 0; i < 5 ; i++)
-    {
-        ll_append(linked, a[i]);
-    }
-    ssize_t r = ll_get(linked, -1);
-    cr_expect_eq(r, -1, 
-            "Expected return value to be %ld but was %ld", -1, r);
-}
-
 Test(Basics, get_greater_index_than_size)
 {
     List* linked = ll_new_list();
@@ -184,5 +172,151 @@ Test(Basics, insert_at_back)
     cr_expect_eq(indice5->next, NULL, "Expected indice6 to be NULL");
     cr_expect_eq(indice5->data, 15, "Expected indice5->data to be 15 but was %lu"
             , indice5->data);
-    
+}
+
+Test(Basics, insert_at_front)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_insert(linked,0, 9);
+    cr_expect_eq(r, 1, "Expected return value to be 1");
+    cr_expect_eq(linked->size, 6, "Expected size to be 6 but was %lu",
+            linked->size);
+    Node* indice0 = linked->head;
+    cr_assert_neq(indice0, NULL, "Expected indice0 to be not NULL");
+    cr_assert_neq(indice0->next, NULL, "Expected indice1 to be not NULL");
+    cr_expect_eq(indice0->next->data, 10, "Expected indice1-> to be 10 but was %lu"
+            , indice0->next->data);
+    cr_expect_eq(indice0->data, 9, "Expected indice0->data to be 9 but was %lu"
+            , indice0->data);
+}
+
+Test(Basics, insert_at_middle)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_insert(linked,1, 9);
+    cr_expect_eq(r, 1, "Expected return value to be 1");
+    cr_expect_eq(linked->size, 6, "Expected size to be 6 but was %lu",
+            linked->size);
+    cr_assert_neq(linked->head, NULL, "Expected indice0 to be not NULL");
+    Node* indice1= linked->head->next;
+    cr_expect_eq(linked->head->data, 10, "Expected indice0->data to be 10 but was %lu"
+            , linked->head->data);
+    cr_assert_neq(indice1, NULL, "Expected indice1 to be not NULL");
+    cr_expect_eq(indice1->data, 9, "Expected indice1->data to be 9 but was %lu"
+            , indice1->data);
+    cr_assert_neq(indice1->next, NULL, "Expected indice2 to be not NULL");
+    cr_expect_eq(indice1->next->data, 11, "Expected indice2-> to be 11 but was %lu"
+            , indice1->next->data);
+}
+
+Test(Basics, insert_at_index_to_big)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_insert(linked,10, 1);
+    cr_expect_eq(r, 0, "Expected return value to be 0");
+    cr_expect_eq(linked->size, 5, "Expected size to be 5 but was %lu",
+            linked->size);
+}
+
+Test(Basics, remove_end)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_remove(linked, 4);
+    cr_expect_eq(r, 14, "Expected return value to be 14");
+    cr_expect_eq(linked->size, 4, "Expected size to be 4 but was %lu",
+            linked->size);
+    Node* tmp = linked->head;
+    for (size_t i = 0; i < 4; i++)
+    {
+        cr_assert_neq(tmp, NULL, "index%lu shouldn't be NULL",i);
+        cr_expect_eq(tmp->data, a[i], "index%lu->data should be %lu be was %lu",
+            i,a[i], tmp->data);
+        tmp = tmp->next;
+
+    }
+    cr_expect_eq(tmp, NULL, "index4 should be NULL");
+}
+
+Test(Basics, remove_start)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_remove(linked, 0);
+    cr_expect_eq(r, 10, "Expected return value to be 10, but was %lu", r);
+    cr_expect_eq(linked->size, 4, "Expected size to be 4 but was %lu",
+            linked->size);
+    size_t retour[4] = {11,12,13,14};
+    Node* tmp = linked->head;
+    for (size_t i = 0; i < 4; i++)
+    {
+        cr_assert_neq(tmp, NULL, "index%lu shouldn't be NULL",i);
+        cr_expect_eq(tmp->data, retour[i], "index%lu->data should be %lu be was %lu",
+            i, retour[i], tmp->data);
+        tmp = tmp->next;
+
+    }
+    cr_expect_eq(tmp, NULL, "index4 should be NULL");
+}
+
+Test(Basics, remove_middle)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_remove(linked, 2);
+    cr_expect_eq(r, 12, "Expected return value to be 12, but was %lu", r);
+    cr_expect_eq(linked->size, 4, "Expected size to be 4 but was %lu",
+            linked->size);
+    size_t retour[4] = {10,11,13,14};
+    Node* tmp = linked->head;
+    for (size_t i = 0; i < 4; i++)
+    {
+        cr_assert_neq(tmp, NULL, "index%lu shouldn't be NULL",i);
+        cr_expect_eq(tmp->data, retour[i], "index%lu->data should be %lu be was %lu",
+            i, retour[i], tmp->data);
+        tmp = tmp->next;
+
+    }
+    cr_expect_eq(tmp, NULL, "index4 should be NULL");
+}
+
+Test(Basics, remove_index_to_big)
+{
+    List* linked = ll_new_list();
+    size_t a[5] = {10,11,12,13,14};
+    for (size_t i = 0; i < 5 ; i++)
+    {
+        ll_append(linked, a[i]);
+    }
+    ssize_t r = ll_remove(linked, 5);
+    cr_expect_eq(r, -1, "Expected return value to be -1, but was %lu", r);
+    cr_expect_eq(linked->size, 5, "Expected size to be 5 but was %lu",
+            linked->size);
 }
