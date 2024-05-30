@@ -25,7 +25,7 @@ ssize_t ll_append(List* list, size_t data);
 ssize_t ll_pop(List* list);
 
 // Get the data at index
-ssize_t ll_get(List* list, size_t index, int *result);
+ssize_t ll_get(List* list, size_t index);
 
 // Remove the node at index
 ssize_t ll_remove(List* list, size_t index);

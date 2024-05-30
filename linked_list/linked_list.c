@@ -13,6 +13,8 @@ List* ll_new_list() {
 
 // Add a node to the list
 ssize_t ll_append(List* list, size_t data) {
+    if (list == NULL)
+        return 0;
     Node* n = malloc(sizeof(Node));
     if (n == NULL)
         return 0;
@@ -37,7 +39,7 @@ ssize_t ll_append(List* list, size_t data) {
 
 // Pop first node
 ssize_t ll_pop(List* list) {
-    if (list->size == 0)
+    if (list == NULL || list->size == 0)
         return -1;
 
     Node* last;
@@ -60,8 +62,8 @@ ssize_t ll_pop(List* list) {
 }
 
 // Get the data at index
-ssize_t ll_get(List* list, size_t index, int *result) {
-    if (index >= list->size)
+ssize_t ll_get(List* list, size_t index) {
+    if (list == NULL || index >= list->size || index < 0)
         return -1;
     Node* aux = list->head;
     while (index != 0) {
@@ -73,7 +75,7 @@ ssize_t ll_get(List* list, size_t index, int *result) {
 
 // Remove the node at index
 ssize_t ll_remove(List* list, size_t index) {
-    if (index >= list->size)
+    if (list == NULL || index >= list->size)
         return -1;
     if (index == list->size - 1)
         return ll_pop(list);
@@ -92,7 +94,7 @@ ssize_t ll_remove(List* list, size_t index) {
 
 // Insert data at index
 ssize_t ll_insert(List* list, size_t index, size_t data) {
-    if (index > list->size)
+    if (list == NULL || index > list->size)
         return 0;
     if (index > list->size)
         return ll_append(list, data);
@@ -111,11 +113,16 @@ ssize_t ll_insert(List* list, size_t index, size_t data) {
     }
     aux->next = n;
     n->next = cur;
+    list->size++;
     return 1;
 }
 
 // Clear list
 void ll_clear(List *list) {
+    if (list == NULL)
+    {
+        return;
+    }
     Node* cur = list->head;
     Node* aux;
     
@@ -130,6 +137,10 @@ void ll_clear(List *list) {
 
 // Destroy list
 void ll_destroy(List* list) {
+    if (list == NULL)
+    {
+        return;
+    }
     ll_clear(list);
     free(list);
 }
