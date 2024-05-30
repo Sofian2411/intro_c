@@ -112,6 +112,7 @@ ssize_t ll_insert(List* list, int index, int data) {
     return 1;
 }
 
+// Clear list
 void ll_clear(List *list) {
     Node* cur = list->head;
     Node* aux;
@@ -124,6 +125,7 @@ void ll_clear(List *list) {
     list->head = NULL;
 }
 
+// Destroy list
 void ll_destroy(List* list) {
     ll_clear(list);
     free(list);
