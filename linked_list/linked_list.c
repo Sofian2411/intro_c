@@ -4,12 +4,9 @@
 
 // Return a new node with data
 List* ll_new_list() {
-    List* ll = malloc(sizeof(List));
+    List* ll = calloc(1, sizeof(List));
     if (ll == NULL) 
         return NULL;
-    
-    ll->head = NULL;
-    ll->size = 0;
 
     return ll;
 }
