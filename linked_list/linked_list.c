@@ -63,7 +63,7 @@ ssize_t ll_pop(List* list) {
 
 // Get the data at index
 ssize_t ll_get(List* list, size_t index) {
-    if (list == NULL || index >= list->size || index < 0)
+    if (list == NULL || index >= list->size)
         return -1;
     Node* aux = list->head;
     while (index != 0) {
