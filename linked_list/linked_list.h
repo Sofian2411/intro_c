@@ -25,13 +25,13 @@ ssize_t ll_append(List* list, size_t data);
 ssize_t ll_pop(List* list);
 
 // Get the data at index
-ssize_t ll_get(List* list, int index, int *result);
+ssize_t ll_get(List* list, size_t index, int *result);
 
 // Remove the node at index
-ssize_t ll_remove(List* list, int index);
+ssize_t ll_remove(List* list, size_t index);
 
 // Insert data at index
-ssize_t ll_insert(List* list, int index, int data);
+ssize_t ll_insert(List* list, size_t index, size_t data);
 
 // Clear list
 void ll_clear(List* list);

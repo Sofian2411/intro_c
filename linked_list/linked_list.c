@@ -58,7 +58,7 @@ ssize_t ll_pop(List* list) {
 }
 
 // Get the data at index
-ssize_t ll_get(List* list, int index, int *result) {
+ssize_t ll_get(List* list, size_t index, int *result) {
     if (index >= list->size)
         return -1;
     Node* aux = list->head;
@@ -70,7 +70,7 @@ ssize_t ll_get(List* list, int index, int *result) {
 }
 
 // Remove the node at index
-ssize_t ll_remove(List* list, int index) {
+ssize_t ll_remove(List* list, size_t index) {
     if (index >= list->size)
         return -1;
     if (index == list->size - 1)
@@ -89,7 +89,7 @@ ssize_t ll_remove(List* list, int index) {
 }
 
 // Insert data at index
-ssize_t ll_insert(List* list, int index, int data) {
+ssize_t ll_insert(List* list, size_t index, size_t data) {
     if (index > list->size)
         return 0;
     if (index > list->size)
