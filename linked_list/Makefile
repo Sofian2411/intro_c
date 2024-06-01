@@ -13,7 +13,7 @@ ll: linked_list.o main.o
 	${CC} ${CFALGS} -c $< -o $@
 
 test: ${OBJ}
-	${CC} ${CFLAGS} ${LDLIBS} ${OBJ} -o test
+	${CC} ${CFLAGS} ${LDLIBS} ${OBJ} -o $@
 
 check: test 
 	./test
