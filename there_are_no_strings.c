@@ -24,6 +24,9 @@ int main() {
     string_with_no_end[1] = 'b';
     string_with_no_end[2] = 'c';
     string_with_no_end[3] = 'd';
+    string_with_no_end[4] = 'e';
+
+    printf("%s\n", string_with_no_end);
     // no terminating null-byte
 
     return 0;

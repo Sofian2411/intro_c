@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-// Return a new node with data
+// Return an empty list
 List* ll_new_list() {
     List* ll = calloc(1, sizeof(List));
     if (ll == NULL) 
@@ -11,13 +11,13 @@ List* ll_new_list() {
     return ll;
 }
 
-// Add a node to the list
+// Append node to the list
 ssize_t ll_append(List* list, size_t data) {
     if (list == NULL)
-        return 0;
+        return -1;
     Node* n = malloc(sizeof(Node));
     if (n == NULL)
-        return 0;
+        return -1;
 
     n->data = data;
     n->next = NULL;
@@ -103,13 +103,13 @@ ssize_t ll_remove(List* list, size_t index) {
 // Insert data at index
 ssize_t ll_insert(List* list, size_t index, size_t data) {
     if (list == NULL || index > list->size)
-        return 0;
+        return -1;
     if (index > list->size)
         return ll_append(list, data);
 
     Node* n = malloc(sizeof(Node));
     if (n == NULL)
-        return 0;
+        return -1;
     n->data = data;
     
     Node* cur = list->head;

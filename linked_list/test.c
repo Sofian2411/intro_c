@@ -53,7 +53,6 @@ Test(Basics, pop_list)
     ll_append(linked, 12);
     Node* indice0 = linked->head;
     Node* indice1 = indice0->next;
-    Node* indice2 = indice1->next;
     ssize_t r = ll_pop(linked);
     cr_expect_eq(r, 12, 
             "Expected return value to be %d", 12);
@@ -88,7 +87,6 @@ Test(Basics, pop_list_multiple_times)
     ll_append(linked, 12);
     Node* indice0 = linked->head;
     Node* indice1 = indice0->next;
-    Node* indice2 = indice1->next;
     ll_pop(linked);
     ssize_t r = ll_pop(linked);
     cr_expect_eq(r, 11, 
@@ -129,7 +127,7 @@ Test(Basics, get_greater_index_than_size)
     }
     ssize_t r = ll_get(linked, 6);
     cr_expect_eq(r, -1, 
-            "Expected return value to be %ld but was %ld", -1, r);
+            "Expected return value to be %d but was %ld", -1, r);
 }
 
 Test(Basics, clear_array)
@@ -228,7 +226,7 @@ Test(Basics, insert_at_index_to_big)
         ll_append(linked, a[i]);
     }
     ssize_t r = ll_insert(linked,10, 1);
-    cr_expect_eq(r, 0, "Expected return value to be 0");
+    cr_expect_eq(r, -1, "Expected return value to be 0");
     cr_expect_eq(linked->size, 5, "Expected size to be 5 but was %lu",
             linked->size);
 }
@@ -324,7 +322,7 @@ Test(Basics, remove_index_to_big)
 Test(list_NULL, append)
 {
     ssize_t r = ll_append(NULL, 0);
-    cr_expect_eq(r, 0, "expected return value to be 0 but was %lu", r);
+    cr_expect_eq(r, -1, "expected return value to be 0 but was %lu", r);
 }
 
 Test(list_NULL, get)

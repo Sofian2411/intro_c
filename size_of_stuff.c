@@ -42,9 +42,9 @@ int main() {
     printf("Size of %s : %ld\n", "long word", sizeof(int64_t));
 
     // size of structs
-    // printf("\nSize of structs:\n");
-    // printf("Size of 'test' struct : %ld\n", sizeof(struct test));
-    // printf("Size of 'large' struct : %ld\n", sizeof(struct large));
-    // printf("Size of 'not_padded' struct : %ld\n", sizeof(struct not_padded));
-    // printf("Size of 'padded' struct : %ld\n", sizeof(struct padded));
+    printf("\nSize of structs:\n");
+    printf("Size of 'test' struct : %ld\n", sizeof(struct test));
+    printf("Size of 'large' struct : %ld\n", sizeof(struct large));
+    printf("Size of 'not_padded' struct : %ld\n", sizeof(struct not_padded));
+    printf("Size of 'padded' struct : %ld\n", sizeof(struct padded));
 }

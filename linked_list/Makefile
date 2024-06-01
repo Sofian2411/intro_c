@@ -1,17 +1,12 @@
 #Makefile
 CC = gcc
 CFALGS = -std=c99 -Werror
-#CPPFLAGS =
-#LDFLAGS =
 LDLIBS = -lcriterion
 
 SRC = linked_list.c test.c
 OBJ = ${SRC:.c=.o}
-#DEP = ${SRC:.c=.d}
 
-#h: ${OBJ}
-
-ll: ${OBJ}
+ll: linked_list.o main.o
 	${CC} ${CFALGS} -o $@ $^
 
 %.o: %.c
@@ -26,5 +21,4 @@ check: test
 .PHONY: clean, check, test
 
 clean:
-	${RM} ${DEP} ${OBJ} ll test
-
+	${RM} ${DEP} ${OBJ} ll test main.o
