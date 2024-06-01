@@ -64,4 +64,13 @@ void ll_clear(List* list);
 // Clear the list and free up all used memory
 void ll_destroy(List* list);
 
+// Add your own functions !
+// For example:
+// - list reverse
+// - list merge
+// - list sort (try merge sort)
+// - list zip (merge two lists into one by alternating elements)
+// etc...
+// (Embetez moi sur discord si vous voulez une ref pour ces fonctions)
+
 #endif
